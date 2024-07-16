@@ -1,5 +1,8 @@
 class Pessoa:
-    """Atributos de um objeto, __init__ metodo contrutor
+    """Atribudo de classe (default) são definidos fora do __init__"""
+    olhos = 2
+
+    """Atributos de instancia, __init__ metodo contrutor
     da classe.
     """
     def __init__(self, *filhos, nome=None, idade=35):
@@ -26,5 +29,12 @@ if __name__ == '__main__':
     luciano.sobrenome = 'Ramalho'
     luciano.sobrenome
     del luciano.filhos
+    luciano.olhos = 1
+    """Atributo de instancia"""
     print(luciano.__dict__)
     print(renzo.__dict__)
+    Pessoa.olhos = 3
+    del luciano.olhos
+    print(Pessoa.olhos)
+    print(renzo.olhos)
+    print(id(Pessoa.olhos), id(luciano.olhos), id(renzo.olhos))
