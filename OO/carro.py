@@ -1,22 +1,22 @@
 """
-Você deve criar uma classe carro que vai possuir
+Voce deve criar uma classe carro que vai possuir
 dois atributos compostos por outras duas classes:
 
 Motor
-Direção
+Direcao
 
-O Motor terá a responsabilidade de controlar a velocidade.
+O Motor tera a responsabilidade de controlar a velocidade.
 Ele oferece os seguintes atributos:
 
 Atributo de dado velocidade
-Método acelerar, que deverá incremetar a velocidade de uma unidade
-Método frear que deverá decrementar a velocidade em duas unidades
-A Direção terá a responsabilidade de controlar a direção. Ela oferece
+Matodo acelerar, que devera incremetar a velocidade de uma unidade
+Matodo frear que devera decrementar a velocidade em duas unidades
+A Direcao tera a responsabilidade de controlar a direcao. Ela oferece
 os seguintes atributos:
 
-Valor de diração com valores possíveis: Norte, Sul, Leste, Oeste.
-Método girar_a_direita
-Método girar_a_esquerda
+Valor de direcao com valores possiveis: Norte, Sul, Leste, Oeste.
+Metodo girar_a_direita
+Metodo girar_a_esquerda
 
        N
     O     L
@@ -94,11 +94,14 @@ Exemplo:
     >>> carro.calcular_direcao()
     'Oeste'
 """
-
+NORTE = 'Norte'
+SUL = 'Sul'
+LESTE = 'Leste'
+OESTE = 'Oeste'
 
 class Motor:
     def __init__(self):
-        self.velocidade = 1
+        self.velocidade = 0
 
     def acelerar(self):
         self.velocidade += 1
@@ -107,45 +110,57 @@ class Motor:
         if self.velocidade < 2:
             self.velocidade = 1
         else:
-            self.velocidade = self.velocidade - 2
-
+            self.velocidade -= 2
+            self.velocidade = max(0, self.velocidade)
 
 class Direcao:
+
+    rotacao_a_direita_dict = {
+        NORTE: LESTE, LESTE: SUL, SUL: OESTE, OESTE: NORTE
+    }
+
+    rotacao_a_esquerda_dict = {
+        NORTE: OESTE, OESTE: SUL, SUL: LESTE, LESTE: NORTE
+    }
+
     def __init__(self):
-        self.valor = 'Norte'
+        self.valor = NORTE
 
     def girar_a_direita(self):
-        if self.valor == 'Norte':
-            self.valor = 'Leste'
-        elif self.valor == 'Leste':
-            self.valor = 'Sul'
-        elif self.valor == 'Sul':
-            self.valor = 'Oeste'
-        else:
-            self.valor = 'Norte'
+        self.valor = self.rotacao_a_direita_dict[self.valor]
+
+        # if self.valor == 'Norte':
+        #     self.valor = 'Leste'
+        # elif self.valor == 'Leste':
+        #     self.valor = 'Sul'
+        # elif self.valor == 'Sul':
+        #     self.valor = 'Oeste'
+        # else:
+        #     self.valor = 'Norte'
 
     def girar_a_esquerda(self):
-        if self.valor == 'Norte':
-            self.valor = 'Oeste'
-        elif self.valor == 'Oeste':
-            self.valor = 'Sul'
-        elif self.valor == 'Sul':
-            self.valor = 'Leste'
-        else:
-            self.valor = 'Norte'
+        self.valor = self.rotacao_a_esquerda_dict[self.valor]
+        # if self.valor == 'Norte':
+        #     self.valor = 'Oeste'
+        # elif self.valor == 'Oeste':
+        #     self.valor = 'Sul'
+        # elif self.valor == 'Sul':
+        #     self.valor = 'Leste'
+        # else:
+        #     self.valor = 'Norte'
 
 
 class Carro:
 
-    def __init__(self, motor, direcao):
+    def __init__(self, direcao, motor):
         self.motor = motor
         self.direcao = direcao
 
     def acelerar(self):
-        self.motor.acelerar()
+        return self.motor.acelerar()
 
     def frear(self):
-        self.motor.frear()
+        return self.motor.frear()
 
     def calcular_velocidade(self):
         return self.motor.velocidade
@@ -157,7 +172,7 @@ class Carro:
         self.direcao.girar_a_esquerda()
 
     def calcular_direcao(self):
-        return print(self.direcao.valor)
+        return self.direcao.valor
 
 
 if __name__ == '__main__':
