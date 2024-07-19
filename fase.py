@@ -36,7 +36,6 @@ class Fase():
         self._porcos = []
         self._obstaculos = []
 
-
     def adicionar_obstaculo(self, *obstaculos):
         """
         Adiciona obstáculos em uma fase
@@ -87,7 +86,6 @@ class Fase():
         :param tempo: Tempo de lançamento
         """
         pass
-
 
     def calcular_pontos(self, tempo):
         """

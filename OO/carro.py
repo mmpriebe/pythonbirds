@@ -99,6 +99,7 @@ SUL = 'Sul'
 LESTE = 'Leste'
 OESTE = 'Oeste'
 
+
 class Motor:
     def __init__(self):
         self.velocidade = 0
@@ -112,6 +113,7 @@ class Motor:
         else:
             self.velocidade -= 2
             self.velocidade = max(0, self.velocidade)
+
 
 class Direcao:
 

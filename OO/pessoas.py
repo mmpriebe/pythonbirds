@@ -9,11 +9,12 @@ class Pessoa:
         self.nome = nome
         self.idade = idade
         self.filhos = list(filhos)
-    """ metodo está sempre vinculado a 1 objeto
+    """ 
+    metodo está sempre vinculado a 1 objeto
     sempre declarar 'self' em java é 'this'
     """
     def cumprimentar(self):
-        return f'Olá {id(self)}'
+        return f'Olá, meu nome é {self.nome}'
 
     @classmethod
     def nome_e_atributos_de_class(cls):
@@ -25,8 +26,18 @@ class Pessoa:
         return 42
 
 
+class Homem(Pessoa):
+    def cumprimentar(self):
+        cumprimentar_da_classe = super().cumprimentar()
+        return f'{cumprimentar_da_classe}. Aperto de mão'
+
+
+class Mutante(Pessoa):
+    olhos = 1
+
+
 if __name__ == '__main__':
-    renzo = Pessoa(nome='Renzo')
+    renzo = Homem(nome='Renzo')
     luciano = Pessoa(renzo, nome='Luciano')
     print(Pessoa.cumprimentar(luciano))
     print(id(luciano))
@@ -42,7 +53,6 @@ if __name__ == '__main__':
     """Atributo de instancia"""
     print(luciano.__dict__)
     print(renzo.__dict__)
-    Pessoa.olhos = 3
     del luciano.olhos
     print(Pessoa.olhos)
     print(renzo.olhos)
@@ -52,3 +62,12 @@ if __name__ == '__main__':
         Pessoa.nome_e_atributos_de_class(),
         luciano.nome_e_atributos_de_class()
     )
+
+    pessoa = Pessoa('Anonimo')
+    print(isinstance(pessoa, Pessoa))
+    print(isinstance(pessoa, Homem))
+    print(isinstance(renzo, Pessoa))
+    print(isinstance(renzo, Homem))
+    print(renzo.olhos)
+    print(luciano.cumprimentar())
+    print(renzo.cumprimentar())
